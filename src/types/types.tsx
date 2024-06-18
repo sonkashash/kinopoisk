@@ -22,6 +22,8 @@ export interface IMovieCard{
     poster: IPoster;
     countries: ICountry[];
     genres: IGenre[];
+    description?: string;
+    alternativeName?: string;
 }
 
 export interface IFilters {

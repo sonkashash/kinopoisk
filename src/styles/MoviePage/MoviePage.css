@@ -1,0 +1,91 @@
+* {
+    color: white;
+}
+
+.movie-page {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 80px;
+}
+
+.movie-page__backround-image {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    object-fit: cover;
+    filter: opacity(50%) ;
+}
+.movie-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to right, transparent, black);
+}
+
+
+.movie-page__title {
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.movie-page__poster {
+    width: 400px;
+
+}
+
+.movie-page__poster img {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.movie-page__info__rating_year {
+    height: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.rating {
+    width: 50px;
+    height: 100%;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    margin-right: 15px;
+}
+
+.year {
+    font-size: 24px;
+}
+
+
+.movie-page__description {
+    max-width: 500px;
+}
+
+.movie-page__info__genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.genre {
+    background-color: grey;
+    border-radius: 5px;
+    color: white;
+    font-weight: 200;
+    padding: 2px;
+}

@@ -10,10 +10,10 @@ function App() {
   return (
     <Router>
       <Link to="">Главная</Link>
-      <Link to="/movie">Фильм</Link>
+      <Link to="/movie/:id">Фильм</Link>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/movie" element={<MoviePage />} />
+        <Route path="/movie/:id" element={<MoviePage />} />
       </Routes>
     </Router>
   );
