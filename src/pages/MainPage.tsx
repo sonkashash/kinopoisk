@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import FilterGenres from '../components/MainPage/FilterGenres';
 import FilterYears from '../components/MainPage/FilterYears';
+import FilterRating from '../components/MainPage/FilterRating';
 
 const MainPage: React.FC = () => {
   const limitPerPage: number = 50;
@@ -18,11 +19,12 @@ const MainPage: React.FC = () => {
   const [pageTotal, setPageTotal] = useState<number>(0);
   const [isLoad, setIsLoad] = useState<boolean>(true);
   const [filters, setFilters] = useState<string[]>([]);
-  const [years, setYears] = useState<number[]>([1990, 1995]);
+  const [years, setYears] = useState<number[]>([1990, 2024]);
+  const [rating, setRating] = useState<number>(0);
 
   const options = {
     method: 'GET',
-    headers: { accept: 'application/json', 'X-API-KEY': 'FM39E85-84EMRJN-NMNH4PY-BRJACPM' }
+    headers: { accept: 'application/json', 'X-API-KEY': 'MEKZKQY-4C4469Z-QMEP4D9-BPV634K' }
   };
 
   useEffect(() => {
@@ -32,13 +34,16 @@ const MainPage: React.FC = () => {
       left: 0,
       behavior: 'smooth'
     });
-  }, [page, filters, years]);
+  }, [page, filters, years, rating]);
 
   async function fetchMovies() {
     try {
       const queryParams = new URLSearchParams();
       filters.forEach(filter => queryParams.append('genres.name', filter));
       queryParams.append('year', `${years[0]}-${years[1]}`);
+      console.log(years[0], years[1])
+      queryParams.append('rating.kp', `${rating}-${10}`);
+      queryParams.append('rating.imdb', `${rating}-${10}`);
       const queries = queryParams.toString();
       setIsLoad(true);
       const response = await axios.get(`https://api.kinopoisk.dev/v1.4/movie?page=${page}&limit=${limitPerPage}&${queries}`, options);
@@ -46,7 +51,7 @@ const MainPage: React.FC = () => {
       setPageTotal(response.data.pages);
       setPage(response.data.page);
       setIsLoad(false);
-      console.log(`https://api.kinopoisk.dev/v1.4/movie?page=${page}&limit=${limitPerPage}&${queries}`);
+      console.log(response.data.docs);
     } catch (e) {
       alert(e);
       setIsLoad(false);
@@ -63,15 +68,20 @@ const MainPage: React.FC = () => {
     setPage(1)
   };
 
+  const handleRatingChange = (newRating: number) => {
+    setRating(newRating);
+    setPage(1)
+  };
+
   return (
     <>
       <div className='main-container'>
         <div className="filters">
-          <div className='years'>
-            <p>Годы</p>
-            <FilterYears selectedYears={years} onYearsChange={handleYearsChange} />
-          </div>
+          
+          <h3 className="filters__title">Настройте фильтры</h3>
+          <FilterRating selectedRating={rating} onRatingChange={handleRatingChange}/>
           <FilterGenres selectedGenres={filters} onGenresChange={handleFiltersChange} />
+          <FilterYears selectedYears={years} onYearsChange={handleYearsChange} />
         </div>
         <div className='movie-list'>
           {isLoad ? (

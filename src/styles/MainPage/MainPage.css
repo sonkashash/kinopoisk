@@ -10,13 +10,21 @@ a {
     color: white;
 }
 
+.main-container{
+    display: flex;
+    width: 100vw;
+    justify-content: left;
+}
+
 .movie-list {
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
     justify-content: center;
     margin-inline: 5%;
     margin-bottom: 30px;
+    border-left: 1px solid gray;
 }
 
 .loader {
@@ -28,12 +36,24 @@ a {
 
 .filters {
     margin: 30px auto;
-    position: relative;
-    width: 800px;
+    width: 20%;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    gap: 70px;
+    justify-content: top;
+    align-items: start;
+    padding-left: 20px;
     border-radius: 10px;
+    color: white;
+}
+.filters__title{
+    font-size: 26px;
+    text-align: center;
+}
+
+.filter__title{
+    padding-left: 10px;
+    font-size: 23px;
 }
 
 .MuiPagination-root {
@@ -56,26 +76,35 @@ a {
     }
 }
 
-.MuiNativeSelect-select {
+div.MuiSelect-select {
+    padding: 10px;
     * {
         color: white !important;
     }
 }
 
-.MuiFormControl-root {
-
+div.MuiFormControl-root {
+    margin: 0;
     div {
         color: white;
-        padding-left: 0;
+        /* padding-left: 10px; */
+        max-width: 200px;
+        
     }
 }
 
-.MuiInputBase-root {
-    margin-bottom: 40px;
-}
+/* .MuiInputBase-root {
+   
+} */
 
 .MuiFormControl {
     div {
+        color: white;
+    }
+}
+
+.MuiSlider-root{
+    span.MuiSlider-markLabel {
         color: white;
     }
 }

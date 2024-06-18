@@ -19,9 +19,9 @@ const MovieCard: FC<MovieCardProps> = ({ card }) => {
             </div>
             <h3 className={card.name ? "movie-card__name" : "movie-card__name text-red"}>{card.name ?? 'Нет названия'}</h3>
             <div className="movie-card__info">
-                <div className="movie-card__info__year">{card.year}</div>
+                <div className="movie-card__info__year"><em>{card.year}</em></div>
                 <div className="movie-card__info__countries">
-                    {card.countries?.map((country, index) => <span className="movie-card__info__country" key={index}>{country.name}</span>)}
+                    {card.countries?.map((country, index) => <em className="movie-card__info__country" key={index}>{country.name}</em>)}
                 </div>
             </div>
         </div>

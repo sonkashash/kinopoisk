@@ -8,6 +8,8 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import '../../styles/MainPage/MainPage.css';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -32,13 +34,16 @@ const genreOptions = [
   'документальный',
   'история',
   'детектив',
-  'ужасы'
+  'ужасы',
+  'боевик',
+  'семейное',
+  
 ];
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
+function getStyles(name: string, selectedGenresState: string[], theme: Theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      selectedGenresState.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
@@ -63,38 +68,39 @@ const FilterGenres: React.FC<FilterGenresProps> = ({ selectedGenres, onGenresCha
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: 200 }}>
-        <InputLabel id="demo-multiple-chip-label">Жанры</InputLabel>
+      <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
           multiple
+          displayEmpty
           value={selectedGenresState}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Жанры" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+          input={<OutlinedInput />}
+          renderValue={(selected) => {
+            if (selected.length === 0) {
+              return <p>Жанры</p>;
+            }
+
+            return selected.join(', ');
+          }}
           MenuProps={MenuProps}
+          inputProps={{ 'aria-label': 'Without label' }}
         >
-          {genreOptions.map((name) => (
+          {/* <MenuItem disabled value="">
+            <p>Жанры</p>
+          </MenuItem> */}
+          {genreOptions.map((genre) => (
             <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, selectedGenresState, theme)}
+              key={genre}
+              value={genre}
+              // style={getStyles(genre, selectedGenresState, theme)}
             >
-              {name}
+              {genre}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
   );
 }
 
 export default FilterGenres;
+

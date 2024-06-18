@@ -87,6 +87,10 @@
     display: block;
 }
 
+.movie-card__info__country{
+    font-size: 12px;
+}
+
 .movie-card__info__country:not(:last-of-type):after {
     content: ', ';
 }

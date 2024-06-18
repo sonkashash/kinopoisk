@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Typography from '@mui/material/Typography';
 
 const marks = [
     {
@@ -16,8 +17,8 @@ const marks = [
         label: '2010',
     },
     {
-        value: 2024,
-        label: '2024',
+        value: 2020,
+        label: '2020',
     },
 ];
 
@@ -46,7 +47,8 @@ const FilterYears: React.FC<FilterYearsProps> = ({ selectedYears, onYearsChange 
 
 
     return (
-        <Box sx={{ width: 200 }}>
+        <Box sx={{ width: 200, '& > legend': { mb: 1 }}}>
+            <Typography component="legend" className='filter__title'>Годы</Typography>
             <Slider
                 // defaultValue={[1990, 1995]}
                 value={value}
