@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# Проект Кинопоиск
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Описание
 
-## Available Scripts
+Проект позволяет просматривать информацию о фильмах с использованием [API Кинопоиска]('https://kinopoisk.dev'). 
+На главной странице выводятся по 50 фильмов на странице. Реализована фильтрация по году фильма, по рейтингу, по жанрам.
+При клике на карточку фильма есть возможность перейти на страницу данного фильма с более подробной информацией.
+Реализована возможность добавления фильмов в "Избранное".
 
-In the project directory, you can run:
+## Установка
 
-### `npm start`
+1. **Клонируйте репозиторий:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    ```
+    git clone https://github.com/sonkashash/kinopoisk
+    cd kinopoisk
+    ```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. **Установите зависимости:**
 
-### `npm test`
+    ```
+    npm install
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. **Создайте файл окружения:**
 
-### `npm run build`
+    Скопируйте `.env.default` в `.env`:
+    Ключ для использования АПИ Кинопоиска можно получить бесплатно через [сайт]('https://kinopoisk.dev')
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    ```
+    cp .env.default .env
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    Отредактируйте файл `.env` с вашими настройками.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Запустите проект локально:**
 
-### `npm run eject`
+    ```
+    npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Использование
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Проект будет доступен по адресу `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## СТЭК
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Требования
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Node.js
+- npm
+

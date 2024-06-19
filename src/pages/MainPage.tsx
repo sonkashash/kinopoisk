@@ -3,33 +3,32 @@ import { IMovieCard } from '../types/types';
 import List from '../components/List';
 import axios from 'axios';
 import MovieCard from '../components/MainPage/MovieCard';
-import '../styles/MainPage/MainPage.css';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
 import FilterGenres from '../components/MainPage/FilterGenres';
 import FilterYears from '../components/MainPage/FilterYears';
 import FilterRating from '../components/MainPage/FilterRating';
-import { Link } from 'react-router-dom';
+import { Pagination, Stack, Button, CircularProgress, useMediaQuery} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import UseLocalStorage from '../components/UseLocalStorage';
 
-export const baseUrl = 'https://api.kinopoisk.dev/v1.4/movie';
-export const options = {
-  method: 'GET',
-  headers: { accept: 'application/json', 'X-API-KEY': 'FM39E85-84EMRJN-NMNH4PY-BRJACPM' }
-};
+const limitPerPage = 50;
+const maxMovieRating = 10;
+export const apiUrl = 'https://api.kinopoisk.dev/v1.4/movie';
 
 const MainPage: React.FC = () => {
+  const isBigScreen = useMediaQuery('(min-width:800px)');
+  const navigate = useNavigate();
 
-  const limitPerPage: number = 50;
   const [cards, setCards] = useState<IMovieCard[]>([]);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(() => {
+    const storedPage = localStorage.getItem('currentPage');
+    return storedPage ? parseInt(storedPage, 10) : 1;
+  });
   const [pageTotal, setPageTotal] = useState<number>(0);
   const [isLoad, setIsLoad] = useState<boolean>(true);
-  const [filters, setFilters] = useState<string[]>([]);
-  const [years, setYears] = useState<number[]>([1990, 2024]);
-  const [rating, setRating] = useState<number>(0);
-  const maxMovieRating: number = 10;
-
+  const [filters, setFilters] = UseLocalStorage<string[]>('filters', []);
+  const [years, setYears] = UseLocalStorage<number[]>('years', [1990, 2024]);
+  const [rating, setRating] = UseLocalStorage<number>('rating', 0);
+  const [favorites, setFavorites] = UseLocalStorage<IMovieCard[]>('favorites', []);
 
   useEffect(() => {
     fetchMovies();
@@ -41,6 +40,7 @@ const MainPage: React.FC = () => {
   }, [page, filters, years, rating]);
 
   async function fetchMovies() {
+    setIsLoad(true);
     try {
       const queryParams = new URLSearchParams();
       filters.forEach(filter => queryParams.append('genres.name', filter));
@@ -48,72 +48,74 @@ const MainPage: React.FC = () => {
       queryParams.append('rating.kp', `${rating}-${maxMovieRating}`);
       queryParams.append('rating.imdb', `${rating}-${maxMovieRating}`);
       const queries = queryParams.toString();
-      const response = await axios.get(`${baseUrl}?page=${page}&limit=${limitPerPage}&${queries}`, options);
+
+      const response = await axios.get(`${apiUrl}?page=${page}&limit=${limitPerPage}&${queries}`, {
+        method: 'GET',
+        headers: { accept: 'application/json', 'X-API-KEY': process.env.REACT_APP_API_KEY}
+      });
+
       setCards(response.data.docs);
       setPageTotal(response.data.pages);
-      setPage(response.data.page);
       setIsLoad(false);
-      console.log(response.data.docs);
     } catch (error) {
-      let e = error as Error
-      alert(e.message.split(' ').at(-1) === '403' ? 'Кончились бесплатные запросы' : e.message)
       setIsLoad(false);
+      console.log( error);
     }
   }
 
-  const handleFiltersChange = (newFilters: string[]) => {
-    setFilters(newFilters);
-    setPage(1)
+  const handleChange = <T,>(setter: React.Dispatch<React.SetStateAction<T>>, value: T) => {
+    setter(value);
+    setPage(1);
   };
 
-  const handleYearsChange = (newYears: number[]) => {
-    setYears(newYears);
-    setPage(1)
+  const resetFilters = () => {
+    setFilters([]);
+    setYears([1990, 2024]);
+    setRating(0);
+    setPage(1);
   };
 
-  const handleRatingChange = (newRating: number) => {
-    setRating(newRating);
-    setPage(1)
+  const handleMovieClick = (movieId: number) => {
+    localStorage.setItem('currentPage', String(page));
+    navigate(`/movie/${movieId}`);
   };
 
   return (
-    <>
-      <div className='main-container'>
-        <div className="filters">
-
-          <h3 className="filters__title">Настройте фильтры</h3>
-          <FilterRating selectedRating={rating} onRatingChange={handleRatingChange} />
-          <FilterGenres selectedGenres={filters} onGenresChange={handleFiltersChange} />
-          <FilterYears selectedYears={years} onYearsChange={handleYearsChange} />
-        </div>
-        <div className='movie-list'>
-          {isLoad ? (
-            <Stack>
-              <CircularProgress color="primary" className="loader" />
-            </Stack>
-          ) : (
-            <>
-              <List items={cards} renderItem={(card: IMovieCard) => (
-                <Link to={`/movie/${card.id}`} key={card.id} style={{ textDecoration: 'none' }}>
-                  <MovieCard card={card} />
-                </Link>
-              )} />
-            </>
-          )}
-        </div>
+    <div className={isBigScreen? 'main-container' : 'main-container small-screen'}>
+      <div className="filters">
+        <h1 className="filters__title">Фильтры</h1>
+        <FilterRating selectedRating={rating} onRatingChange={(newRating) => handleChange(setRating, newRating)} />
+        <FilterGenres selectedGenres={filters} onGenresChange={(newFilters) => handleChange(setFilters, newFilters)} />
+        <FilterYears selectedYears={years} onYearsChange={(newYears) => handleChange(setYears, newYears)} />
+        <Button onClick={resetFilters} variant="contained" color="primary">Сбросить фильтры</Button>
       </div>
-      <Stack spacing={2}>
+      <div className='movie-list'>
+        <h1 className='movie-list__title'>Фильмы</h1>
+        {isLoad ? (
+          <Stack>
+            <CircularProgress color="primary" className="loader" />
+          </Stack>
+        ) : (
+          <>
+            <List items={cards} renderItem={(card: IMovieCard) => (
+              <div onClick={() => handleMovieClick(card.id)} key={card.id} style={{ cursor: 'pointer' }}>
+                <MovieCard card={card} />
+              </div>
+            )} />
+          </>
+        )}
         <Pagination
-          showFirstButton
-          showLastButton
           count={pageTotal}
           onChange={(_, num: number) => setPage(num)}
           page={page}
           color="primary"
         />
-      </Stack>
-    </>
+      </div>
+    </div>
   );
 }
 
 export default MainPage;
+
+
+

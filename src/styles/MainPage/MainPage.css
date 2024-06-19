@@ -10,21 +10,38 @@ a {
     color: white;
 }
 
-.main-container{
+.main-container {
     display: flex;
     width: 100vw;
     justify-content: left;
+    min-height: 600px;
+
+}
+
+.main-container.small-screen {
+    flex-wrap: wrap;
 }
 
 .movie-list {
-    width: 80%;
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    justify-content: center;
+    justify-content: right;
     margin-inline: 5%;
     margin-bottom: 30px;
-    border-left: 1px solid gray;
+    position: relative;
+    padding-bottom: 80px;
+    flex-grow: 3;
+}
+
+.main-container.small-screen .movie-list {
+    gap: 30px;
+    justify-content: center;
+}
+
+.movie-list__title {
+    width: 100%;
+    text-align: center;
 }
 
 .loader {
@@ -33,44 +50,47 @@ a {
     left: 50%;
 }
 
-
 .filters {
-    margin: 30px auto;
-    width: 20%;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
-    gap: 70px;
+    gap: 40px;
     justify-content: top;
     align-items: start;
     padding-left: 20px;
     border-radius: 10px;
     color: white;
-}
-.filters__title{
-    font-size: 26px;
-    text-align: center;
+    margin-bottom: 50px;
 }
 
-.filter__title{
+.main-container.small-screen .filters {
+    width: 100%;
+    align-items: center;
+}
+
+.filters__title {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.filter__title {
     padding-left: 10px;
     font-size: 23px;
 }
 
-.MuiPagination-root {
-
+nav.MuiPagination-root {
     padding-bottom: 10px;
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
     button {
         color: white;
     }
 }
 
-.MuiPagination-ul {
-
-    position: relative;
-    left: 30%;
-    width: calc(100vw - 30%);
-
+ul.MuiPagination-ul {
     div {
         color: white !important;
     }
@@ -78,6 +98,8 @@ a {
 
 div.MuiSelect-select {
     padding: 10px;
+    border: 1px solid rgb(25, 118, 210);
+
     * {
         color: white !important;
     }
@@ -85,17 +107,14 @@ div.MuiSelect-select {
 
 div.MuiFormControl-root {
     margin: 0;
+    width: 200px;
+
     div {
         color: white;
-        /* padding-left: 10px; */
         max-width: 200px;
-        
+
     }
 }
-
-/* .MuiInputBase-root {
-   
-} */
 
 .MuiFormControl {
     div {
@@ -103,8 +122,22 @@ div.MuiFormControl-root {
     }
 }
 
-.MuiSlider-root{
+.MuiSlider-root {
     span.MuiSlider-markLabel {
         color: white;
+    }
+
+    .MuiSlider-track {
+        color: rgb(25, 118, 210);
+    }
+}
+
+.MuiList-root {
+    color: rgb(25, 118, 210);
+}
+
+.MuiBox-root {
+    label {
+        color: rgb(25, 118, 210);
     }
 }

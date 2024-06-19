@@ -1,0 +1,28 @@
+header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+    font-weight: bold;
+    padding-left: 30px;
+    background-color:rgb(25, 118, 210);
+    filter: drop-shadow(0 0 20px rgba(25, 118, 210, 0.8))
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav>* {
+    margin-right: 20px;
+}
+nav *:hover{
+    color: rgb(74, 68, 68)
+} 
+
+.logo-vk{
+    width: 30px;
+    height: 30px;
+}

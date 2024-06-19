@@ -24,3 +24,5 @@ yarn-error.log*
 
 token.txt
 data.json
+.env*
+!.env.default

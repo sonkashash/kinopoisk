@@ -55,8 +55,11 @@ interface FilterGenresProps {
 }
 
 const FilterGenres: React.FC<FilterGenresProps> = ({ selectedGenres, onGenresChange }) => {
-  const theme = useTheme();
   const [selectedGenresState, setSelectedGenresState] = React.useState<string[]>(selectedGenres);
+
+  React.useEffect(() => {
+    setSelectedGenresState(selectedGenres);
+  }, [selectedGenres]);
 
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {

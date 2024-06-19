@@ -4,21 +4,27 @@
 
 .movie-page {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    gap: 80px;
+    row-gap: 80px;
 }
 
 .movie-page__backround-image {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -2;
     object-fit: cover;
-    filter: opacity(50%) ;
+    filter: opacity(50%);
 }
+
+.movie-page__backround-image.small-screen{
+    height: 250%;
+}
+
 .movie-page::before {
     content: '';
     position: fixed;
@@ -38,7 +44,7 @@
 
 .movie-page__poster {
     width: 400px;
-
+    height: 550px;
 }
 
 .movie-page__poster img {
@@ -46,6 +52,10 @@
     width: 100%;
     height: 100%;
     border-radius: 20px;
+}
+
+.movie-page__info {
+    width: 50%;
 }
 
 .movie-page__info__rating_year {
@@ -72,6 +82,7 @@
 
 .movie-page__description {
     max-width: 500px;
+    margin-bottom: 30px;
 }
 
 .movie-page__info__genres {
