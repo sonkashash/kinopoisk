@@ -1,15 +1,9 @@
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
 import '../../styles/MainPage/MainPage.css';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,17 +31,7 @@ const genreOptions = [
   'ужасы',
   'боевик',
   'семейное',
-  
 ];
-
-function getStyles(name: string, selectedGenresState: string[], theme: Theme) {
-  return {
-    fontWeight:
-      selectedGenresState.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 interface FilterGenresProps {
   selectedGenres: string[];
@@ -82,20 +66,15 @@ const FilterGenres: React.FC<FilterGenresProps> = ({ selectedGenres, onGenresCha
             if (selected.length === 0) {
               return <p>Жанры</p>;
             }
-
             return selected.join(', ');
           }}
           MenuProps={MenuProps}
           inputProps={{ 'aria-label': 'Without label' }}
         >
-          {/* <MenuItem disabled value="">
-            <p>Жанры</p>
-          </MenuItem> */}
           {genreOptions.map((genre) => (
             <MenuItem
               key={genre}
               value={genre}
-              // style={getStyles(genre, selectedGenresState, theme)}
             >
               {genre}
             </MenuItem>

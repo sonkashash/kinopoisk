@@ -7,7 +7,7 @@ import FilterGenres from '../components/MainPage/FilterGenres';
 import FilterYears from '../components/MainPage/FilterYears';
 import FilterRating from '../components/MainPage/FilterRating';
 import { Pagination, Stack, Button, CircularProgress, useMediaQuery} from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UseLocalStorage from '../components/UseLocalStorage';
 
 const limitPerPage = 50;

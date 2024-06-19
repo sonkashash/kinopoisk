@@ -35,7 +35,7 @@ const MoviePage: React.FC = () => {
       setMovie(response.data);
       setIsLoad(false);
     } catch (error) {
-      console.error('Error fetching movie:', error);
+      console.log(error);
       setIsLoad(false);
     }
   };

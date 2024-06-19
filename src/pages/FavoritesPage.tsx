@@ -17,7 +17,6 @@ const FavoritesPage: React.FC = () => {
   };
 
   const handleDeleteFavorite = (id: number) => {
-   
     const updatedFavorites = favorites.filter(fav => fav.id !== id);
     setFavorites(updatedFavorites);
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));

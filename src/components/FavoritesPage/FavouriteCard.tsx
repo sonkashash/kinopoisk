@@ -3,12 +3,11 @@ import { IMovieCard } from '../../types/types';
 import '../../styles/FavoritesPage/FavoriteCard.css';
 import '../../styles/MainPage/MovieCard.css';
 import plugPosterPath from '../../assets/plug-poster.png';
-import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface FavoriteCardProps {
     card: IMovieCard;
-    onDelete: (id: number) => void;  // Добавляем prop onDelete для обработки удаления
+    onDelete: (id: number) => void; 
 }
 
 const FavoriteCard: FC<FavoriteCardProps> = ({ card, onDelete }) => {

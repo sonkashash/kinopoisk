@@ -4,7 +4,6 @@ import '../../styles/MainPage/MovieCard.css';
 import plugPosterPath from '../../assets/plug-poster.png';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { useMediaQuery } from '@mui/material';
 
 interface MovieCardProps {
     card: IMovieCard;
